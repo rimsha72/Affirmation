@@ -1,7 +1,10 @@
-import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { baseUrl } from "../config/config";
-import Login from "../pages/login/login";
+
+// Constants for hardcoded credentials
+const CONSTANT_CREDENTIALS = {
+  email: "user@example.com",
+  password: "password123"
+};
 
 const UserContext = React.createContext();
 
@@ -14,37 +17,25 @@ const UserProvider = ({ children }) => {
   const [message, setMessage] = useState(null);
   const [token, setToken] = useState(null);
 
-  const login = async (email, password) => {
-
+  const login = (email, password) => {
     if (!user && !token) {
-      const body = {
-        email, password
-      }
-      await axios.post(`${baseUrl}specialist/login`, body)
-        .then(res => {
-          if (res.data.data) {
-            setUser(res.data.data)
-            localStorage.setItem("key", JSON.stringify(res.data.token));
-            localStorage.setItem("user", JSON.stringify(res.data.data))
-            setToken(res.data.token)
-          }
-        })
-        .catch(err => {
-          setMessage(err.message)
-          console.log(err)
-        })
-    }
-  }
-  // onAuthStateChanged(auth, (usr) => {
-  //   if (usr) {
-  //     setUser(usr);
-  //   } else {
-  //     setUser(null);
-  //   }
-  // });
+      if (email === CONSTANT_CREDENTIALS.email && password === CONSTANT_CREDENTIALS.password) {
+        const userData = {
+          name: "John Doe",
+          email: email
+        };
+        const fakeToken = "fake-jwt-token";
 
-  // const login = (email, password) =>
-  //   signInWithEmailAndPassword(auth, email, password);
+        setUser(userData);
+        localStorage.setItem("key", JSON.stringify(fakeToken));
+        localStorage.setItem("user", JSON.stringify(userData));
+        setToken(fakeToken);
+      } else {
+        setMessage("Invalid credentials");
+        console.log("Invalid credentials");
+      }
+    }
+  };
 
   useEffect(() => {
     const key = JSON.parse(localStorage.getItem("key"));
@@ -56,15 +47,20 @@ const UserProvider = ({ children }) => {
       setToken(key);
       setUser(data);
     }
-  }, [])
+  }, []);
+
   const logout = () => {
     setUser(null);
     setToken(null);
+    localStorage.removeItem("key");
+    localStorage.removeItem("user");
   };
+
   return (
-    <UserContext.Provider value={{ user, token, login, message }}>
+    <UserContext.Provider value={{ user, token, login, message, logout }}>
       {children}
     </UserContext.Provider>
   );
 };
+
 export default UserProvider;

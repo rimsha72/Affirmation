@@ -11,9 +11,14 @@ export default function Login() {
   const navigate = useNavigate();
   const handleLogin = (e) => {
     e.preventDefault();
-   
+    if (email && password) {
+      login(email, password)
+        .then((e) => {
           navigate("/");
-      
+        })
+    } else {
+      setMessages('Email and password are required!')
+    }
   }
   return (
     <div>
