@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Dashboard from './pages/dashboard/dashboard';
 import UpdatePersonalInfo from './layouts/updatePersonalInfo';
 import Home from './components/home/home';
@@ -34,38 +34,35 @@ export default function Router() {
   const { user, token } = useUser();
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<RootLayout />} >
-          <Route index element={<Home />} />
-          <Route path="personal-information" element={<UpdatePersonalInfo />} />
-          <Route path="profile" element={<Dashboard />} />
-          <Route path="client" element={<Client />} />
-          <Route exact path="view-client" element={<ClientRootLayout />}>
-            <Route index element={<ClientUserDetails />} />
-            <Route exact path='profile' element={<ClientHealthProfile />} />
-            <Route path='requests' element={<ClientSupportRequests />} />
-            <Route path='connect' element={<ClientConnect />} />
-            <Route path='insight' element={<ClientInsight />} />
-            <Route path='plan' element={<ClientWellnessPlan />} />
-            <Route path='share' element={<ClientShare />} />
-          </Route>
-          <Route path="faq" element={<Schedule />} />
-          <Route path="privacy" element={<PrivacyPolicy />} />
-          <Route path="terms" element={<Terms />} />
-          <Route path="support" element={<Support />} />
-          <Route path="support/close" element={<SupportClose />} />
-          <Route path="view-support" element={<ViewSupport />} />
-          <Route path="view-support-close" element={<ViewSupportClose />} />
-          <Route path="password" element={<Password />} />
-          <Route path="availability" element={<Available />} />
-          <Route path="chat" element={<Chat />} />
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/" element={user ? <RootLayout /> : <Navigate to="/login" />} >
+        <Route index element={<Home />} />
+        <Route path="personal-information" element={<UpdatePersonalInfo />} />
+        <Route path="profile" element={<Dashboard />} />
+        <Route path="client" element={<Client />} />
+        <Route exact path="view-client" element={<ClientRootLayout />}>
+          <Route index element={<ClientUserDetails />} />
+          <Route exact path='profile' element={<ClientHealthProfile />} />
+          <Route path='requests' element={<ClientSupportRequests />} />
+          <Route path='connect' element={<ClientConnect />} />
+          <Route path='insight' element={<ClientInsight />} />
+          <Route path='plan' element={<ClientWellnessPlan />} />
+          <Route path='share' element={<ClientShare />} />
         </Route>
-        <Route path="video" element={<Video />} />
-        <Route
-          path="/login"
-          element={<Login />}
-        />
-      </Routes>
-    </BrowserRouter>
+        <Route path="faq" element={<Schedule />} />
+        <Route path="privacy" element={<PrivacyPolicy />} />
+        <Route path="terms" element={<Terms />} />
+        <Route path="support" element={<Support />} />
+        <Route path="support/close" element={<SupportClose />} />
+        <Route path="view-support" element={<ViewSupport />} />
+        <Route path="view-support-close" element={<ViewSupportClose />} />
+        <Route path="password" element={<Password />} />
+        <Route path="availability" element={<Available />} />
+        <Route path="chat" element={<Chat />} />
+      </Route>
+      <Route path="video" element={<Video />} />
+    </Routes>
+  </BrowserRouter>
   )
 }

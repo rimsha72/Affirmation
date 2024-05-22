@@ -6,20 +6,26 @@ import { useNavigate } from "react-router-dom";
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [messages, setMessages] = useState('')
+  const [messages, setMessages] = useState('');
   const { login, message } = useUser();
   const navigate = useNavigate();
+
   const handleLogin = (e) => {
     e.preventDefault();
+    setMessages('');  // Clear previous messages
     if (email && password) {
       login(email, password)
-        .then((e) => {
+        .then(() => {
           navigate("/");
         })
+        .catch((error) => {
+          setMessages(error);
+        });
     } else {
-      setMessages('Email and password are required!')
+      setMessages('Email and password are required!');
     }
-  }
+  };
+
   return (
     <div>
       <LoginComp
@@ -32,5 +38,5 @@ export default function Login() {
         messages={messages}
       />
     </div>
-  )
+  );
 }

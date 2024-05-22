@@ -6,7 +6,7 @@ export default function LoginComp({ email, password, handleLogin, setEmail, setP
       <div className="px-10 pt-6">
         <img src="images/logo.svg" className="h-16" />
       </div>
-      <div className="min-h-screen flex flex-col items-center my-16 ">
+      <div className="min-h-screen flex flex-col items-center my-16">
         <div className="block max-w-xs w-full sm:max-w-lg lg:max-w-4xl px-6 py-16 bg-white border border-gray-200 rounded-lg shadow-lg hover:bg-gray-50">
           <div className="flex justify-center mb-8">
             <img src="images/logo.svg" />
@@ -16,15 +16,14 @@ export default function LoginComp({ email, password, handleLogin, setEmail, setP
           </div>
           <form onSubmit={handleLogin}>
             <div className="lg:px-28 space-y-6">
-              <input type="email" placeholder="Email" className="w-full rounded-md border-0 bg-gray-100 placeholder:text-gray-700" onChange={e => setEmail(e.target.value)} autoComplete="false" />
-              <input type="password" placeholder="Password" className="w-full rounded-md border-0 bg-gray-100 placeholder:text-gray-700" onChange={e => setPassword(e.target.value)} />
+              <input type="email" placeholder="Email" className="w-full rounded-md border-0 bg-gray-100 placeholder:text-gray-700" value={email} onChange={e => setEmail(e.target.value)} autoComplete="false" />
+              <input type="password" placeholder="Password" className="w-full rounded-md border-0 bg-gray-100 placeholder:text-gray-700" value={password} onChange={e => setPassword(e.target.value)} />
             </div>
             <div className="text-center text-red-500 pt-4">
               <p>{message} {messages}</p>
             </div>
             <div className="lg:px-28 text-center pt-8 space-y-4">
               <button className="rounded-md bg-black text-white px-20 py-2 font-sans font-bold" type="submit">Login</button>
-            
             </div>
           </form>
         </div>
