@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.message-scrollBar::-webkit-scrollbar-thumb {
+    background-color: rgba(231, 226, 226, 0.508);
+    height: 20px;
+}
+
+.message-scrollBar::-webkit-scrollbar {
+    width: 8px;
+}
+
+
+body{
+    font-family: 'Poppins';
+    background: #F8F9FE;
+}
