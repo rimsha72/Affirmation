@@ -66,6 +66,20 @@ export default function Sidebar() {
                 <span className="flex-1 ml-3 whitespace-nowrap">Users</span>
               </NavLink>
             </li>
+            {/* <li>
+              <NavLink
+                to="/affirm"
+                className={({ isActive, isPending }) =>
+                  isActive ? "flex items-center py-3 px-5 rounded-lg bg-black text-white font-semibold"
+                    :
+                    "flex items-center py-2 px-5 text-gray-500 rounded-lg hover:bg-black hover:text-white hover:font-medium"
+                }
+              >
+                <IoCalendarOutline />
+                <span className="flex-1 ml-3 whitespace-nowrap">Affirm</span>
+              </NavLink>
+
+            </li> */}
             <li>
               <NavLink
                 to="/faq"

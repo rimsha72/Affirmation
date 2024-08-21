@@ -1,91 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ClientHeader from '../../layouts/client/clientHeader';
 import { BsThreeDots } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
+import { getAllUsers } from '../../config/config';
 
 export default function ClientHome({ data, loader }) {
-  const dummyAppointments = [
-    {
-      id: 1,
-      appointmentTime: '10:00 AM',
-      user: {
-        firstName: 'John',
-        lastName: 'Doe',
-        ageGroup: '30-40',
-        occupation: 'Engineer',
-        currentIncome: '$70,000',
-        desiredOccupation: 'Manager',
-        desiredIncome: '$90,000'
-      }
-    },
-    {
-      id: 2,
-      appointmentTime: '11:00 AM',
-      user: {
-        firstName: 'Jane',
-        lastName: 'Smith',
-        ageGroup: '25-35',
-        occupation: 'Teacher',
-        currentIncome: '$50,000',
-        desiredOccupation: 'Principal',
-        desiredIncome: '$80,000'
-      }
-    },
-    {
-      id: 3,
-      appointmentTime: '12:00 PM',
-      user: {
-        firstName: 'Bob',
-        lastName: 'Johnson',
-        ageGroup: '40-50',
-        occupation: 'Developer',
-        currentIncome: '$80,000',
-        desiredOccupation: 'Tech Lead',
-        desiredIncome: '$110,000'
-      },
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    },
-    {
-      id: 4,
-      appointmentTime: '10:00 AM',
-      user: {
-        firstName: 'John',
-        lastName: 'Doe',
-        ageGroup: '30-40',
-        occupation: 'Engineer',
-        currentIncome: '$70,000',
-        desiredOccupation: 'Manager',
-        desiredIncome: '$90,000'
-      }
-    },
-    {
-      id: 5,
-      appointmentTime: '11:00 AM',
-      user: {
-        firstName: 'Jane',
-        lastName: 'Smith',
-        ageGroup: '20-25',
-        occupation: 'Teacher',
-        currentIncome: '$50,000',
-        desiredOccupation: 'Principal',
-        desiredIncome: '$80,000'
-      }
-    },
-    {
-      id: 6,
-      appointmentTime: '12:00 PM',
-      user: {
-        firstName: 'Bob',
-        lastName: 'Johnson',
-        ageGroup: '40-50',
-        occupation: 'Developer',
-        currentIncome: '$80,000',
-        desiredOccupation: 'Tech Lead',
-        desiredIncome: '$110,000'
-      },
+  // Fetch users when the component mounts
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const fetchedUsers = await getAllUsers();  // Fetch users using getAllUsers function
+      setUsers(fetchedUsers);
+      setLoading(false);
+    };
 
-    }
-  ];
+    fetchUsers();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  console.log(users)
   return (
     <>
       <div className='lg:ml-64' style={{ marginTop: '-180px' }}>
@@ -118,26 +55,14 @@ export default function ClientHome({ data, loader }) {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {dummyAppointments.map((appointment) => (
-                <tr key={appointment.id}>
-                  <td className="px-6 py-4">
-                    {appointment.user.firstName} {appointment.user.lastName}
-                  </td>
-                  <td className="px-6 py-4">
-                    {appointment.user.ageGroup}
-                  </td>
-                  <td className="px-6 py-4">
-                    {appointment.user.occupation}
-                  </td>
-                  <td className="px-6 py-4">
-                    {appointment.user.currentIncome}
-                  </td>
-                  <td className="px-6 py-4">
-                    {appointment.user.desiredOccupation}
-                  </td>
-                  <td className="px-6 py-4">
-                    {appointment.user.desiredIncome}
-                  </td>
+              {users.map((user) => (
+                <tr key={user.id}>
+                  <td className="px-6 py-4">{user.firstName} {user.lastName}</td>
+                  <td className="px-6 py-4">{user.ageGroup}</td>
+                  <td className="px-6 py-4">{user.occupation}</td>
+                  <td className="px-6 py-4">{user.currentIncome}</td>
+                  <td className="px-6 py-4">{user.desiredOccupation}</td>
+                  <td className="px-6 py-4">{user.desiredIncome}</td>
                 </tr>
               ))}
             </tbody>

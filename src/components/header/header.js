@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { BiBell } from 'react-icons/bi'
 import Notifications from '../../layouts/notifications';
 import { Link } from 'react-router-dom';
-import { useUser } from '../../context/UserContext';
+import { useAuth } from '../../context/AuthContext';
 
 export default function Header({ header }) {
   const [drop, setDrop] = useState(false);
-  const { user } = useUser();
+  const { logout } = useAuth()
   return (
     <>
       <div className='bg-black lg:ml-64 rounded-b-xl h-72' >
@@ -22,7 +22,7 @@ export default function Header({ header }) {
                 </div>
                 <button type="button" className="flex text-sm rounded-full md:mr-0" onClick={e => setDrop(!drop)} >
                   <div className='flex items-center text-sm '>
-                  
+
                     <span className='hidden sm:block'>Jane doe</span>
                   </div>
                 </button>
@@ -34,7 +34,10 @@ export default function Header({ header }) {
                     <Link to="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Profile</Link>
                   </li>
                   <li>
-                    <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Log Out</a>
+                    <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                      onClick={logout}
+
+                    >Log Out</a>
                   </li>
                 </ul>
               </div>

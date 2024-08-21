@@ -7,15 +7,17 @@ import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import UserProvider from './context/UserContext';
 import VideoContext from './context/VideoContext';
+import { AuthProvider } from './context/AuthContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <UserProvider>
-      <VideoContext>
-        <App />
-      </VideoContext>
-    </UserProvider>
+    <AuthProvider>
+
+
+      <App />
+
+    </AuthProvider>
   </React.StrictMode>
 );
 
